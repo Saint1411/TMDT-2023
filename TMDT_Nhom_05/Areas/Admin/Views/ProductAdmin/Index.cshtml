@@ -1,0 +1,119 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<TMDT_Nhom_05.Models.Product>
+
+@{
+    ViewBag.Title = "Danh sách sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.3s ease-in-out;
+    }
+
+        .pagination-container.hide {
+            transform: translateY(100%);
+        }
+</style>
+
+<h2 style="margin-bottom:25px">Danh sách sản phẩm</h2>
+
+
+@using (Html.BeginForm("Index", "ProductAdmin", FormMethod.Get))
+{
+
+    <div class="form-group">
+        @Html.Label("Tìm kiếm sản phẩm:", new { @class = "control-label col-md-2", style = "padding-right: 0px;" })
+        <div class="col-md-8" style="padding-left: 0px; padding-right: 0px;">
+            @Html.TextBox("searchString", ViewBag.CurrentFilter as string, null, new { @class = "form-control", placeholder = "Nhập tên sản phẩm" })
+        </div>
+        <div class="col-md-2">
+            <input class="btn btn-success" type="submit" value="Tìm kiếm" style="padding-left: 0px;" />
+        </div>
+    </div>
+}
+<div class="col-md-12" style="margin-bottom:20px; margin-top:15px;">
+    <a class="btn btn-primary" href="~/Admin/ProductAdmin/CreateProduct">Thêm mới</a>
+</div>
+<div>
+    <table class="table table-striped">
+        <tr>
+            <th scope="col">
+                Hình ảnh
+            </th>
+            <th scope="col">
+                Tên sản phẩm
+            </th>
+            <th scope="col">
+                Loại sản phẩm
+            </th>
+            <th scope="col">
+                Giá
+            </th>
+            <th scope="col">
+                Số lượng
+            </th>
+            <th scope="col">
+                Hiển thị
+            </th>
+            <th style="text-align:center">#</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="row">
+                    <img src="~/Areas/Admin/Content/img/img_products/@item.ImagePro" style="height: 100px; width: 100px" />
+                </td>
+                <td style="vertical-align:middle;">
+                    @Html.DisplayFor(modelItem => item.NamePro)
+                </td>
+                <td style="vertical-align:middle;" scope="row">
+                    @Html.DisplayFor(modelItem => item.Category1.NameCate)
+                </td>
+                <td style="vertical-align:middle;" scope="row">
+                    <p>@item.Price.Value.ToString("#,##0") ₫</p>
+                </td>
+                <td style="vertical-align:middle;" scope="row">
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td style="vertical-align:middle;" scope="row">
+                    @if (item.display == true)
+                    {
+                        <p style="color:forestgreen"><i class="fas fa-eye"></i></p>
+                    }
+                    else
+                    {
+                        <p style="color:red"><i class="fas fa-eye-slash"></i></p>
+                    }
+                </td>
+                <td style="vertical-align:middle; text-align:center" scope="row">
+                    <a href="~/Admin/ProductAdmin/DetailProduct/@item.ProductID">Xem</a> |
+                    <a href="~/Admin/ProductAdmin/DeleteProduct/@item.ProductID">Xóa</a> |
+                    <a href="~/Admin/ProductAdmin/EditProduct/@item.ProductID">Sửa</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<hr style="border-style:solid;border-width:1px;" />
+<span>
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) trên @Model.PageCount
+</span>
+<div class="pagination-container">
+
+    @Html.PagedListPager(Model, page => Url.Action("index",
+        new { page, currentFilter = ViewBag.CurrentFilter }))
+</div>
+
+@*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/Demo.js"></script>*@
+
+
+
+

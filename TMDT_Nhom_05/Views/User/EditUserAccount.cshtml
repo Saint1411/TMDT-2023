@@ -1,0 +1,178 @@
+﻿@model TMDT_Nhom_05.Models.Customer
+
+@{
+    ViewBag.Title = "Chỉnh sửa thông tin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cus = (TMDT_Nhom_05.Models.Customer)HttpContext.Current.Session["TaiKhoan"];
+}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+    body {
+        margin-top: 20px;
+        background: #f5f5f5;
+    }
+
+    .panel {
+        box-shadow: none;
+    }
+
+    .panel-heading {
+        border-bottom: 0;
+    }
+
+    .panel-title {
+        font-size: 17px;
+    }
+
+        .panel-title > small {
+            font-size: .75em;
+            color: #999999;
+        }
+
+    .panel-body *:first-child {
+        margin-top: 0;
+    }
+
+    .panel-footer {
+        border-top: 0;
+    }
+
+    .panel-default > .panel-heading {
+        color: #333333;
+        background-color: transparent;
+        border-color: rgba(0, 0, 0, 0.07);
+    }
+
+    form label {
+        color: #999999;
+        font-weight: 400;
+    }
+
+    .form-horizontal .form-group {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+
+    .profile__contact-info-icon {
+        float: left;
+        font-size: 18px;
+        color: #999999;
+    }
+
+    .profile__contact-info-body {
+        overflow: hidden;
+        padding-left: 20px;
+        color: #999999;
+    }
+
+    .profile-avatar {
+        width: 200px;
+        position: relative;
+        margin: 0px auto;
+        margin-top: 196px;
+        border: 4px solid #f3f3f3;
+    }
+</style>
+@using (Html.BeginForm("EditUserAccount", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="container bootstrap snippets bootdeys" style="margin-top:30px; margin-left:auto; margin-right:auto; width: 80%; ">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Thông tin</h4>
+                    </div>
+                    <div class="panel-body">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.IDCus)
+                        @Html.HiddenFor(model => model.UserCus)
+                        <div class="form-group" style="margin-top:20px;">
+                            <label class="col-sm-2 control-label">Tên người dùng</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.NameCus, new { @class = "form-control", @Value = Model.NameCus })
+                                @Html.ValidationMessageFor(model => model.NameCus, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:20px;">
+                            <label class="col-sm-2 control-label">Số điện thoại</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.PhoneCus, new { @class = "form-control", @Value = Model.PhoneCus })
+                                @Html.ValidationMessageFor(model => model.PhoneCus, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:20px;">
+                            <label class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                                @Html.TextBoxFor(model => model.EmailCus, new { @class = "form-control", @Value = Model.EmailCus })
+                                @Html.ValidationMessageFor(model => model.EmailCus, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:20px;">
+                            <label class="col-sm-2 control-label">Điểm</label>
+                            <div class="col-sm-10">
+                                @Html.DisplayFor(model => model.ScorePay, new { @class = "form-control", @Value = Model.ScorePay })
+                                @Html.ValidationMessageFor(model => model.ScorePay, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default" style="margin-top:30px;">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Bảo mật</h4>
+                    </div>
+                    <div class="panel-body">
+                        @if (ViewBag.SuccessMessage != null)
+                        {
+                            <div class="alert alert-success">
+                                @ViewBag.SuccessMessage
+                            </div>
+                        }
+                        @if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-danger">
+                                @ViewBag.Message
+                            </div>
+                        }
+                        <div class="form-group" style="margin-top:20px;">
+                            <label class="col-sm-2 control-label">Mật khẩu hiện tại</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="OldPassword">
+                                @if (ViewBag.OldPasswordError != null)
+                                {
+                                    <span class="text-danger">@ViewBag.OldPasswordError</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:20px;">
+                            <label class="col-sm-2 control-label">Mật khẩu mới</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" name="NewPassword">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top:30px;">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button type="submit" class="btn btn-primary">Cập nhật</button>
+                                <button type="reset" class="btn btn-default">Làm lại</button>
+                                <a style="float:right;" class="btn btn-secondary" href="~/HistoryOrder/HistoryOrder">Lịch sử đặt hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var message = @Html.Raw(Json.Encode(ViewBag.SuccessMessage));
+    if (message) {
+        alert(message);
+    }
+
+    });
+</script>

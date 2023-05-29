@@ -1,0 +1,124 @@
+﻿@model List<TMDT_Nhom_05.Models.OrderPro>
+
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<h2 style="margin-bottom: 20px;">Danh sách tất cả đơn hàng</h2>
+@if (ViewBag.ThongBao != null)
+{
+    <span class="text-danger">@ViewBag.ThongBao</span>
+}
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Từ ngày:</label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" id="fromDate" name="fromDate" placeholder="dd/mm/yyyy">
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Đến ngày:</label>
+    <div class="col-sm-4">
+        <input type="text" class="form-control" id="toDate" name="toDate" placeholder="dd/mm/yyyy">
+    </div>
+</div>
+<p style="float:right; font-weight:bold;">
+    Tổng tiền các đơn hàng:
+    @if (ViewBag.TotalPay != null)
+    {
+        <span style="color:red;">@ViewBag.TotalPay.ToString("#,##0.00") ₫</span>
+    }
+    else
+    {
+        <span style="color:red;"></span>
+    }
+</p>
+<div class="form-group row">
+    <div class="col-sm-2">
+        <button id="filterButton" class="btn btn-success">Thống kê</button>
+    </div>
+</div>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th style="text-align:center">
+            Mã đơn hàng
+        </th>
+        <th>
+            Ngày
+        </th>
+        <th>
+            Tên khách hàng
+        </th>
+        <th>
+            Thanh toán
+        </th>
+        <th>
+            Ngày thanh toán
+        </th>
+        <th>
+            Tổng tiền
+        </th>
+        <th>
+            Tình trạng
+        </th>
+        <th style="text-align:center">
+            #
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center">
+                <a class="btn btn-info" href="~/Admin/OrderAdmin/OrderDetail/@item.ID">@item.ID</a>
+            </td>
+            <td>
+                @item.DateOrder.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.Customer.NameCus
+            </td>
+            <td>
+                @{
+                    string statePay = "Chưa TT";
+                    if (item.Pay == true)
+                    {
+                        statePay = "Đã TT";
+                    }
+                }
+                <p>@statePay</p>
+            </td>
+            <td>
+                @item.DatePay.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.TotalPay.Value.ToString("#,##0") ₫
+            </td>
+            <td>
+                @{
+                    switch (item.OrderState)
+                    {
+                        case 1:
+                            <p>đang giao</p>
+                            break;
+                        case 2:
+                            <p>Đã giao</p>
+                            break;
+                        case 3:
+                            <p>Đã hủy bỏ</p>
+                            break;
+                        case 0:
+                            <p style="color:red">Chưa xác nhận</p>
+                            break;
+                    }
+                }
+            </td>
+            <td>
+                <a class="btn btn-primary" href="~/Admin/OrderAdmin/EditOrderList?ID=@item.ID"><i class="fas fa-edit"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+

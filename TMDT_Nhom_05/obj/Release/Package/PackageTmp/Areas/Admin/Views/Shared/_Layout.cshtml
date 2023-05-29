@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.title</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="~/Areas/Admin/Content/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <link href="~/Areas/Admin/Content/css/font-awesome.css" rel="stylesheet" />
+    <!--CUSTOM BASIC STYLES-->
+    <link href="~/Areas/Admin/Content/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="~/Areas/Admin/Content/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href="~/Content/fontawesome-free-6.4.0-web/css/all.min.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="~/Admin/HomeAdmin/Index">Trang quản trị</a>
+            </div>
+
+            <div class="header-right">
+
+
+                <a href="~/Home/About" class="btn btn-primary" title="About us"><i class="fa fa-exclamation-circle fa-2x"></i></a>
+
+            </div>
+        </nav>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <div class="user-img-div">
+                            <img src="~/Areas/Admin/Content/img/avt.jpg" class="img-thumbnail" />
+
+                            <div class="inner-text">
+                                @{
+                                    var user = (TMDT_Nhom_05.Models.AdminUser)HttpContext.Current.Session["user"];
+                                    if (user != null)
+                                    {
+                                        <p style="color:white">Xin chào <span style="color:aquamarine">@user.NameUser</span></p>
+                                    }
+                                    else
+                                    {
+                                        Response.Redirect("~/Admin/HomeAdmin/LogIn");
+                                    }
+                                }
+                                <br />
+                            </div>
+                        </div>
+
+                    </li>
+
+
+                    <li>
+                        <a class="active-menu" href="~/Admin/HomeAdmin"><i class="fa fa-dashboard "></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-seedling "></i>Danh mục sản phẩm<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="~/Admin/ProductAdmin"><i class="fas fa-carrot "></i>Danh sách sản phẩm</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/Category"><i class="fas fa-code-branch"></i>>Danh sách loại</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fas fa-file-invoice-dollar"></i>Quản lý đơn hàng <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="~/Admin/OrderAdmin/OrderList"><i class="fa fa-coffee"></i>Tất cả</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/OrderAdmin/NotConfirmOrderList"><i class="fa fa-flash "></i>Chưa xác nhận</a>
+                            </li>
+                            <li>
+                                <a href="~/Admin/OrderAdmin/DeliveringOrderList"><i class="fa fa-send "></i>Đang giao</a>
+                            </li>
+
+                            <li>
+                                <a href="~/Admin/OrderAdmin/IsRemoveOrderList"><i class="fa fa-recycle "></i>Đã hủy đơn</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="~/Admin/Customer/CustomerList"><i class="fas fa-users"></i>Quản lý khách hàng</a>
+                    </li>
+                    <li>
+                        <a href="~/Admin/HomeAdmin/LogOut"><i class="fa fa-sign-in "></i>Đăng xuất</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            @RenderBody()
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+
+    <div id="footer-sec">
+        &copy; 2014 YourCompany | Design By : <a href="#" target="_blank">BinaryTheme.com</a>
+    </div>
+    <!-- /. FOOTER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="~/Areas/Admin/Content/js/jquery-1.10.2.js"></script>
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="~/Areas/Admin/Content/js/bootstrap.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="~/Areas/Admin/Content/js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="~/Areas/Admin/Content/js/custom.js"></script>
+
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $(function () {
+        $("#fromDate").datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+        $("#toDate").datepicker({
+            dateFormat: "dd/mm/yy"
+        });
+    });
+    $(document).on('click', '#filterButton', function () {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        var url = 'OrderList?fromDate=' + fromDate + '&toDate=' + toDate;
+        window.location.href = url;
+    });
+
+    $(document).on('click', '#filterButton1', function () {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        var url = 'NotConfirmOrderList?fromDate=' + fromDate + '&toDate=' + toDate;
+        window.location.href = url;
+    });
+    $(document).on('click', '#filterButton2', function () {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        var url = 'DeliveringOrderList?fromDate=' + fromDate + '&toDate=' + toDate;
+        window.location.href = url;
+    });
+    $(document).on('click', '#filterButton3', function () {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+        var url = 'IsRemoveOrderList?fromDate=' + fromDate + '&toDate=' + toDate;
+        window.location.href = url;
+    });
+</script>
+

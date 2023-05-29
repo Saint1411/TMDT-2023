@@ -1,0 +1,64 @@
+﻿@model TMDT_Nhom_05.Models.Product
+
+@{
+    ViewBag.Title = "Xóa sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xóa sản phẩm</h2>
+
+<h3 style="color:red">Bạn có chắc chắn muốn xóa?</h3>
+<div>
+    <h4>Mã sản phẩm: @Model.ProductID</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên sản phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamePro)
+        </dd>
+
+        <dt>
+            Mô tả:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DecriptionPro)
+        </dd>
+
+        <dt>
+            Giá:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            Hình ảnh:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePro)
+        </dd>
+
+        <dt>
+            Loại sản phẩm:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category1.NameCate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("DeleteProduct", "ProductAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            @Html.ActionLink("Quay về", "Index")  | 
+            <input type="submit" value="Xóa" class="btn btn-danger" />
+        </div>
+    }
+</div>

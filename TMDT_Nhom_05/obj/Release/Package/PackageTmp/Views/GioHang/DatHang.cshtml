@@ -1,0 +1,162 @@
+﻿@using TMDT_Nhom_05.Models
+@model List<MuaMatHang>
+@{
+    ViewBag.Title = "Thanh Toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Customer customer = Session["TaiKhoan"] as Customer;
+}
+
+<div class="container px-3 my-5 clearfix">
+    <div class="card">
+        <div class="card-header">
+            <h2>Thông tin giỏ hàng</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered m-0">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pro in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img style="width:120px; height:100px" src="~/Areas/Admin/Content/img/img_products/@pro.HinhAnh" />
+                                </td>
+                                <td>@pro.TenSP</td>
+                                <td>@pro.Soluong</td>
+                                <td>@String.Format("{0:0,0}", pro.DonGia)</td>
+                                <td>@String.Format("{0:0,0}", pro.ThanhTien())</td>
+                            </tr>
+                        }
+                        <tr style="font-weight:bold; text-align:right;color:red;">
+                            <td colspan="4">Tổng số lượng: @ViewBag.TongSL</td>
+                            <td colspan="5">Tổng tiền: @String.Format("{0:0,0}", ViewBag.TongTien) ₫</td>
+                        </tr>
+                        <tr style="font-weight:bold; text-align:right;color:red;">
+                            @if (ViewBag.GiamGia != null)
+                            {
+                                <td colspan="5">Giảm còn: @String.Format("{0:0,0}", ViewBag.GiamGia) ₫</td>
+                            }
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container px-3 my-5 clearfix">
+    <div class="card">
+        <div class="card-header">
+            <h2 style="text-align:center; color:cadetblue;">Thông tin khách hàng</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table m-0">
+                    @{
+                        if (customer != null)
+                        {
+                            <tr>
+                                <td style="width:100px;">
+                                    <label for="name">Họ và tên:</label>
+                                </td>
+                                <td>
+                                    <input type="text" id="name" name="NameCus" required style="width:100%;border:none;" value="@customer.NameCus">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:80px;">
+                                    <label for="SDT">SDT</label>
+                                </td>
+                                <td>
+                                    <input type="number" id="SDT" name="PhoneCus" required style="width:100%;border:none;" value="@customer.PhoneCus">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="Email">Email</label>
+                                </td>
+                                <td>
+                                    <input type="email" id="Email" name="EmailCus" required style="width:100%;border:none;" value="@customer.EmailCus">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Điểm
+                                </td>
+                                <td>
+                                    @customer.ScorePay
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ngày đặt: </td>
+                                <td>@DateTime.Now.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="text-align:center;">
+                                    @Html.ActionLink("Đặt hàng", "DongYDatHang", null, new { @class = "btn btn-success" })
+                                    <a href="@Url.Action("Payment","GioHang")" class="btn btn-info">Thanh toán VNPay</a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("DongYDatHang", "GioHang", FormMethod.Post))
+                            {
+                                <tr>
+                                    <td style="width:100px;">
+                                        <label for="name">Họ và tên</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="name" name="NameCus" required style="width:100%;border:none;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:80px;">
+                                        <label for="SDT">SDT</label>
+                                    </td>
+                                    <td>
+                                        <input type="number" id="SDT" name="PhoneCus" required style="width:100%;border:none;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label for="Email">Email</label>
+                                    </td>
+                                    <td>
+                                        <input type="email" id="Email" name="EmailCus" required style="width:100%;border:none;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Điểm
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày đặt: </td>
+                                    <td>@DateTime.Now.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align:center;">
+                                        <button type="submit" class="btn btn-success">Đặt hàng</button>
+                                    </td>
+                                </tr>
+                            }
+
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

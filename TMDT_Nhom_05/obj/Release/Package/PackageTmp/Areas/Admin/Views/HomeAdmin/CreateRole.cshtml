@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TMDT_Nhom_05.Models.Role>
+
+@{
+    ViewBag.Title = "Phân quyền";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 style="text-align:center">Thêm phân quyền</h2>
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.ErrorMessage
+    </div>
+}
+@if (ViewBag.SuccessMessage != null)
+{
+    <div class="alert alert-success" role="alert">
+        @ViewBag.SuccessMessage
+    </div>
+}
+@using (Html.BeginForm("CreateRole", "HomeAdmin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("Tài khoản")
+        @Html.DropDownList("idAdmin", new SelectList(ViewBag.AdminUsers, "ID", "NameUser"), null, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Quyền")
+        @Html.DropDownList("idFunction", new SelectList(ViewBag.Functions, "ID", "FunctionName"), null, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Ghi chú")
+        @Html.TextBox("note", null, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thêm</button>
+}
+
+<a href="@Url.Action("Index", "HomeAdmin")" style="margin-top:15px;" class="btn btn-default">Quay về</a>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var message = @Html.Raw(Json.Encode(ViewBag.SuccessMessage));
+    if (message) {
+        alert(message);
+    }
+
+    });
+</script>
+

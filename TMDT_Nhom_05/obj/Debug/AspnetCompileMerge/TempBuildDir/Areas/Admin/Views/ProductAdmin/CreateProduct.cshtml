@@ -1,0 +1,70 @@
+﻿@model TMDT_Nhom_05.Models.Product
+
+@{
+    ViewBag.Title = "CreateProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    TMDT_Nhom_05.Models.TMDTEntities db = new TMDT_Nhom_05.Models.TMDTEntities();
+}
+
+<h2>Thêm mới sản phẩm</h2>
+
+@using (Html.BeginForm("CreateProduct", "ProductAdmin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2 style="color:red;">@ViewBag.Message </h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="NamePro" class="control-label col-md-2">Tên sản phẩm</label>
+            <div class="col-md-10">
+                <input type="text" id="NamePro" name="NamePro" class="form-control" />
+                @Html.ValidationMessageFor(model => model.NamePro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="DecriptionPro" class="control-label col-md-2">Mô tả</label>
+            <div class="col-md-10">
+                <input type="text" id="DecriptionPro" name="DecriptionPro" class="form-control" />
+                @Html.ValidationMessageFor(model => model.DecriptionPro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, "Loại", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select class="form-control" name="Category">
+                    @foreach (var cate in db.Categories.ToList())
+                    {
+                        <option value="@cate.IDCate">@cate.NameCate</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Price" class="control-label col-md-2">Giá</label>
+            <div class="col-md-10">
+                <input type="text" id="Price" name="Price" class="form-control" />
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImagePro, "Hình ảnh",htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageUpload" />
+                @Html.ValidationMessageFor(model => model.ImagePro, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Quay về danh sách", "Index")
+</div>

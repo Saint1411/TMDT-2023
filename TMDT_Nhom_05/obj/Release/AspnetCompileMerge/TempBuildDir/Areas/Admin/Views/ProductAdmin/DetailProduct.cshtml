@@ -1,0 +1,59 @@
+﻿@model TMDT_Nhom_05.Models.Product
+
+@{
+    ViewBag.Title = "DetailProduct";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DetailProduct</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NamePro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NamePro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DecriptionPro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DecriptionPro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category1.NameCate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category1.NameCate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <a href="~/Admin/ProductAdmin/EditProduct/@Model.ProductID">Sửa</a> |
+    <a href="~/Admin/ProductAdmin/Index">Back to list</a>
+</p>

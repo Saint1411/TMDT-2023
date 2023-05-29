@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 style="text-align:center;"> Đăng Nhập</h2>
+<br />
+<div class="row">
+    <div class="offset-md-1 col-md-10">
+        <h2 style="color:red">@ViewBag.ThongBao</h2>
+        @using (Html.BeginForm("LogIn", "User"))
+        {
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                <label for="name">Tên đăng nhập</label>
+                @Html.TextBox("UserCus", null, new { @class = "form-control", @id = "name", required = "required" })
+            </div>
+            <div class="form-group">
+                <label for="matkhau">Mật khẩu</label>
+                @Html.Password("PassCus", null, new { @class = "form-control", @id = "matkhau", required = "required" })
+            </div>
+            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+            <a href="~/User/Register" class="btn btn-success">Đăng ký</a>
+
+        }
+    </div>
+</div>

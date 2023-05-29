@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TMDT_Nhom_05.Models.Customer>
+
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách khách hàng</h2>
+
+<p>
+    <a class="btn btn-danger" href="~/Admin/Customer/CreateCus">Thêm mới</a>
+    <a class="btn btn-warning" href="~/Admin/Customer/CustomerAccount">Tài khoản</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Tên khách hàng
+                </th>
+                <th>
+                    SĐT
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Tài khoản
+                </th>
+                <th>
+                    Điểm
+                </th>
+                <th>
+                    Loại
+                </th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                string loai = "";
+                if (@item.TypeCus == 2)
+                {
+                    loai = "Vip";
+                }
+                else if (@item.TypeCus == 1)
+                {
+                    loai = "Normal";
+
+                }
+                else if (@item.TypeCus == null | @item.TypeCus == 0)
+                {
+                    loai = "Visited";
+                }
+                <tr>
+                    <td style="vertical-align:middle; font-size: 20px;"><span class="label label-success">@item.NameCus</span></td>
+                    <td style="vertical-align:middle; font-size: 17px;">@item.PhoneCus</td>
+                    <td style="vertical-align:middle; font-size: 17px;">@item.EmailCus</td>
+                    <td style="vertical-align:middle; font-size: 17px;">@item.UserCus</td>
+                    <td style="vertical-align:middle; font-size: 17px;">@item.ScorePay</td>
+                    <td style="vertical-align:middle; font-size: 17px;">@loai</td>
+                    <td>
+                        <a class="btn btn-primary" href="~/Admin/Customer/EditCus/@item.IDCus">Sửa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

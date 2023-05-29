@@ -1,0 +1,112 @@
+﻿@using TMDT_Nhom_05.Models
+@model List<MuaMatHang>
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    body {
+        margin-top: 20px;
+        background: #eee;
+    }
+
+    .ui-w-40 {
+        width: 40px !important;
+        height: auto;
+    }
+
+    .card {
+        box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+    }
+
+    .ui-product-color {
+        display: inline-block;
+        overflow: hidden;
+        margin: .144em;
+        width: .875rem;
+        height: .875rem;
+        border-radius: 10rem;
+        -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.15) inset;
+        box-shadow: 0 0 0 1px rgba(0,0,0,0.15) inset;
+        vertical-align: middle;
+    }
+</style>
+
+<div class="container px-3 my-5 clearfix">
+    <div class="card">
+        <div class="card-header">
+            <h2>Thông tin giỏ hàng</h2>
+        </div>
+        @if (ViewBag.ThongBao != null)
+        {
+            <p class="alert alert-success">@ViewBag.ThongBao</p>
+        }
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered m-0">
+                    <thead>
+                        <tr>
+                            <!-- Set columns width -->
+                            <th class="text-center py-3 px-4" style="min-width: 340px;">Hình ảnh và sản phẩm</th>
+                            <th class="text-right py-3 px-4" style="width: 130px; text-align:center;">Giá</th>
+                            <th class="text-center py-3 px-4" style="width: 130px;">Số lượng</th>
+                            <th class="text-right py-3 px-4" style="width: 150px;text-align:center">Thành tiền</th>
+                            <th class="text-right py-3 px-4" style="width: 60px;text-align:center">Cập nhật</th>
+                            <th class="text-right py-3 px-4" style="width: 60px;text-align:center">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pro in Model)
+                        {
+                            <tr>
+                                @using (Html.BeginForm("CapNhatMatHang", "GioHang", new { MaSP = pro.MaSP }))
+                                {
+                                    <td class="p-4">
+                                        <a href="~/Product/Detail/@pro.MaSP">
+                                            <div class="media align-items-center">
+                                                <img style="width:120px; height:100px" src="~/Areas/Admin/Content/img/img_products/@pro.HinhAnh" />
+                                                <div class="media-body">
+                                                    <p class="d-block text-dark" style="font-weight:bold; margin-left:20px">@pro.TenSP</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td style="text-align:center" class="text-right font-weight-semibold align-middle p-4">@pro.DonGia.ToString("#,##0") ₫</td>
+                                    <td class="align-middle p-4"><input type="number" class="form-control text-center" value="@pro.Soluong" name="SoLuong" min="1"></td>
+                                    <td style="text-align:center" class="text-right font-weight-semibold align-middle p-4">@pro.ThanhTien().ToString("#,##0") ₫</td>
+                                    <td class="text-center align-middle px-0">
+                                        <button class="btn btn-success" type="submit"><i class="fas fa-sync-alt"></i></button>
+                                    </td>
+                                    <td class="text-center align-middle px-0"><a href="~/GioHang/XoaMatHang?MaSP=@pro.MaSP" class="btn btn-danger"><i class="fas fa-trash"></i></a></td>
+                                }
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
+                <div class="mt-4">
+                    <label class="text-muted font-weight-normal">Mã giảm giá</label>
+                    <input type="text" placeholder="ABC" class="form-control">
+                </div>
+                <div class="d-flex">
+                    <div class="text-right mt-4 mr-5">
+                        <label class="text-muted font-weight-normal m-0">Số lượng</label>
+                        <div class="text-large" style="text-align:center"><strong style="color:seagreen">@ViewBag.TongSL</strong></div>
+                    </div>
+                    <div class="text-right mt-4" style="margin-left: 40px;">
+                        <label class="text-muted font-weight-normal m-0">Tổng tiền</label>
+                        <div class="text-large" style="text-align:center"><strong style="color:red;">@ViewBag.TongTien.ToString("#,##0") ₫</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="float-right">
+                <a href="~/Product/Product" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Tiếp tục mua hàng</a>
+                @*<button type="button" class="btn btn-lg btn-default md-btn-flat mt-2 mr-3">Tiếp tục mua hàng</button>*@
+                <a class="btn btn-lg btn-primary mt-2" href="~/GioHang/DatHang">Thanh toán</a>
+            </div>
+        </div>
+    </div>
+</div>

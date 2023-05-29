@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0b311e54f5084bcf8c5764009dc8a552" Name="Diagram1">
+        <EntityTypeShape EntityType="TMDTModel.AdminUser" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMDTModel.Category" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMDTModel.Customer" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMDTModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMDTModel.OrderPro" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TMDTModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="TMDTModel.FK_Pro_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="TMDTModel.FK__OrderPro__IDCus__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="TMDTModel.FK__OrderDeta__IDOrd__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="TMDTModel.FK__OrderDeta__IDPro__412EB0B6" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TMDTModel.Function" Width="1.5" PointX="5.75" PointY="7.875" />
+        <EntityTypeShape EntityType="TMDTModel.Role" Width="1.5" PointX="8" PointY="4.75" />
+        <AssociationConnector Association="TMDTModel.FK_Roles_AdminUser" />
+        <AssociationConnector Association="TMDTModel.FK_Roles_Function" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

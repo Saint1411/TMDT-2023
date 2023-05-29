@@ -1,0 +1,69 @@
+﻿@model List<TMDT_Nhom_05.Models.OrderDetail>
+
+@{
+    ViewBag.Title = "OrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int x = 0;
+    foreach (var id in Model)
+    {
+        x = (int)id.IDOrder;
+    }
+}
+
+<h2 style="margin-bottom: 20px">Chi tiết đơn hàng: <spam style="color:red;">@x</spam></h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Stt
+        </th>
+        <th>
+            Sản phẩm
+        </th>
+        <th>
+            Mã đơn hàng
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Tổng tiền
+        </th>
+        <th>
+            Ghi chú
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td style="color: forestgreen;">
+                @item.Product.NamePro
+            </td>
+            <td>
+                @item.IDOrder
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @item.UnitPrice.Value.ToString("#,##0") ₫
+            </td>
+            <td>
+                @item.CommentPro
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "EditOrderDetail", new { id = item.ID }) |
+                @Html.ActionLink("Xem", "DetailOrderDetail", new { id = item.ID }) |
+                @Html.ActionLink("Xóa", "DeleteOrderDetail", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+<a href="~/Admin/OrderAdmin/OrderList">Danh sách đơn hàng</a>

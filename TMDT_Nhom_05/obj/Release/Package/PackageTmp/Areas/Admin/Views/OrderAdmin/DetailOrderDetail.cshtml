@@ -1,0 +1,55 @@
+﻿@model TMDT_Nhom_05.Models.OrderDetail
+
+@{
+    ViewBag.Title = "DetailOrderDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chỉnh sửa chi tiết đơn</h2>
+
+<div>
+    <h3>Đơn hàng stt: <span style="color:red;">@Model.ID</span></h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã đơn hàng
+        </dt>
+
+        <dd>
+            @Model.IDOrder
+        </dd>
+
+        <dt>
+            Sản phẩm
+        </dt>
+
+        <dd>
+            @Model.Product.NamePro
+        </dd>
+
+        <dt>
+            Số lượng
+        </dt>
+
+        <dd>
+            @Model.Quantity
+        </dd>
+
+        <dt>
+            Tổng tiền
+        </dt>
+
+        <dd>
+            @{
+                int tong = (int)Model.Quantity * (int)Model.Product.Price;
+                <p>@tong.ToString("#,##0") ₫</p>
+            }
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "EditOrderDetail", new { id = Model.ID }) |
+    @Html.ActionLink("Quay về danh sách", "OrderDetail", new { id = Model.ID })
+</p>

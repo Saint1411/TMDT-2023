@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Cảm ơn bạn đã mua hàng!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 200px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+    </style>
+    <div class="container">
+        <header>
+            <img src="~/Content/img/checkout.png" alt="logo" style="width:auto; height:auto"/>
+        </header>
+        <main>
+            <h1>Cảm ơn bạn đã mua hàng tại Fram Fresh!</h1>
+            <p>Chúng tôi rất trân trọng sự ủng hộ của bạn và mong muốn được phục vụ bạn trong các dịch vụ và sản phẩm tốt.</p>
+            <a href="~/Product/Product" class="btn btn-success">Tiếp tục mua hàng</a>
+        </main>
+    </div>
+</body>
+</html>
+

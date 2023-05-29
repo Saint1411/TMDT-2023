@@ -1,0 +1,41 @@
+﻿@model TMDT_Nhom_05.Models.Category
+
+@{
+    ViewBag.Title = "Xóa loại sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Xóa loại sẩn phẩm</h2>
+
+<h3>Bạn có chắc muốn xóa loại sản phẩm này?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Mã loại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            Tên loại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameCate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            @Html.ActionLink("Quay về", "Index") | 
+            <input type="submit" value="Xóa" class="btn btn-default" />
+        </div>
+    }
+</div>

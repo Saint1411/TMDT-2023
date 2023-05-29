@@ -1,0 +1,41 @@
+﻿@model TMDT_Nhom_05.Models.Category
+
+@{
+    ViewBag.Title = "DetailCate";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Chi tiết loại sản phẩm</h2>
+
+<div>
+    <h4>@Model.NameCate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            ID: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            Mã loại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDCate)
+        </dd>
+        <dt>
+            Tên loại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameCate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Quay về", "Index", null, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Sửa", "EditCate", new { id = Model.Id }, new { @class = "btn btn-success" })
+</p>

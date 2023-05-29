@@ -1,0 +1,93 @@
+﻿@model List<TMDT_Nhom_05.Models.OrderPro>
+
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    TMDT_Nhom_05.Models.TMDTEntities db = new TMDT_Nhom_05.Models.TMDTEntities();
+}
+
+<h2 style="margin-bottom: 20px;">Danh sách đơn hàng đã hủy</h2>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th style="text-align:center">
+            Mã đơn hàng
+        </th>
+        <th>
+            Ngày
+        </th>
+        <th>
+            Tên khách hàng
+        </th>
+        <th>
+            Thanh toán
+        </th>
+        <th>
+            Ngày thanh toán
+        </th>
+        <th>
+            Tổng tiền
+        </th>
+        <th>
+            Tình trạng
+        </th>
+        <th>
+            Ghi chú
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="text-align:center">
+                <a class="btn btn-danger" href="~/Admin/OrderAdmin/OrderDetail/@item.ID">@item.ID</a>
+            </td>
+            <td>
+                @item.DateOrder.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.Customer.NameCus
+            </td>
+            <td>
+                @{
+                    string statePay = "Chưa TT";
+                    if (item.Pay == true)
+                    {
+                        statePay = "Đã TT";
+                    }
+                }
+                <p>@statePay</p>
+            </td>
+            <td>
+                @item.DatePay.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.TotalPay.Value.ToString("#,##0") ₫
+            </td>
+            <td>
+                @{
+                    switch (item.OrderState)
+                    {
+                        case 1:
+                            <p>đang giao</p>
+                            break;
+                        case 2:
+                            <p>Đã giao</p>
+                            break;
+                        case 3:
+                            <p>Đã hủy bỏ</p>
+                            break;
+                        case 0:
+                            <p>Chưa xác nhận</p>
+                            break;
+                    }
+                }
+            </td>
+            <td>
+                @item.WhyNot
+            </td>
+        </tr>
+    }
+
+</table>

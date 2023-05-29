@@ -1,0 +1,40 @@
+﻿@model List<TMDT_Nhom_05.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Loại sản phẩm</h2>
+
+<p>
+    <a class="btn btn-success" href="~/Admin/Category/CreateCate">Thêm mới</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Mã loại
+        </th>
+        <th>
+            Tên loại
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDCate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameCate)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "EditCate", new { id=item.Id }) |
+            @Html.ActionLink("Chi tiết", "DetailCate", new { id=item.Id }) |
+            @Html.ActionLink("Xóa", "DeleteCate", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

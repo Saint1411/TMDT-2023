@@ -1,0 +1,55 @@
+﻿@model List<TMDT_Nhom_05.Models.OrderDetail>
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int x = 0;
+    foreach (var id in Model)
+    {
+        x = (int)id.IDOrder;
+    }
+}
+
+<h2 style="margin-bottom: 20px">Chi tiết đơn hàng: <spam style="color:red;">@x</spam></h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Stt
+        </th>
+        <th>
+            Sản phẩm
+        </th>
+        <th>
+            Mã đơn hàng
+        </th>
+        <th>
+            Số lượng
+        </th>
+        <th>
+            Tổng tiền
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.ID
+            </td>
+            <td style="color: forestgreen;">
+                @item.Product.NamePro
+            </td>
+            <td>
+                @item.IDOrder
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @item.UnitPrice.Value.ToString("#,##0") ₫
+            </td>
+        </tr>
+    }
+
+</table>
+<a href="~/HistoryOrder/HistoryOrder">Lịch sử đơn hàng</a>
