@@ -114,8 +114,6 @@ namespace TMDT_Nhom_05.Areas.Admin.Controllers
             return View(product);
         }
 
-
-
         [HttpGet]
         public ActionResult DeleteProduct(int? id)
         {
@@ -151,6 +149,7 @@ namespace TMDT_Nhom_05.Areas.Admin.Controllers
             }
             catch
             {
+                TempData["message"] = "Xóa thất bại!";
                 return View(proDelete);
             }
         }

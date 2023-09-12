@@ -6,7 +6,10 @@
 }
 
 <h2>Xóa sản phẩm</h2>
-
+@if (TempData["message"] != null)
+{
+    <h4 style="color:red">@TempData["message"]</h4>
+}
 <h3 style="color:red">Bạn có chắc chắn muốn xóa?</h3>
 <div>
     <h4>Mã sản phẩm: @Model.ProductID</h4>
@@ -57,7 +60,7 @@
     {
         @Html.AntiForgeryToken()
         <div class="form-actions no-color">
-            @Html.ActionLink("Quay về", "Index")  | 
+            @Html.ActionLink("Quay về", "Index")  |
             <input type="submit" value="Xóa" class="btn btn-danger" />
         </div>
     }
